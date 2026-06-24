@@ -1,0 +1,28 @@
+### Get all posts
+GET http://localhost:8080/api/blog-posts
+
+### Get one post
+GET http://localhost:8080/api/blog-posts/1
+
+### Create
+POST http://localhost:8080/api/blog-posts
+Content-Type: application/json
+
+{
+  "title": "IntelliJ test",
+  "body": "Testing from .http file",
+  "userId": 1
+}
+
+### Update
+PUT http://localhost:8080/api/blog-posts/1
+Content-Type: application/json
+
+{
+  "title": "Updated",
+  "body": "Updated from IntelliJ",
+  "userId": 1
+}
+
+### Delete
+DELETE http://localhost:8080/api/blog-posts/1

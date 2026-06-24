@@ -1,0 +1,49 @@
+/*
+
+Imperative — LegacyBlogPostClient:
+"Get me a BlogPost. Here's how: call .get(), set URI to /posts/{id}, call .retrieve(), call .body(BlogPost.class)."
+
+Declarative — BlogPostClient:
+"Get me a BlogPost from /{id}."
+========================================================
+        HTTP CLIENT EVOLUTION IN SPRING
+========================================================
+
+1. RestTemplate (Spring 3 → Spring 5)
+------------------------------------
+✔ Traditional approach
+✔ Imperative (blocking)
+❌ Verbose
+❌ Boilerplate-heavy
+❌ Hard to maintain
+
+Example:
+RestTemplate restTemplate = new RestTemplate();
+String response = restTemplate.getForObject(url, String.class);
+
+
+
+2. RestClient (Spring 6.1+)
+----------------------------
+✔ Modern replacement for RestTemplate
+✔ Fluent API
+✔ Still synchronous
+
+
+3. Declarative HTTP Client (Spring 6.1+/Boot 4)
+------------------------------------------------
+✔ Minimal code
+✔ No Heavy dependencies like Feign
+✔ Typesafe by design
+
+Architecture perspective:
+•	Declarative design improves consistency
+•	Declarative design improves consistency
+
+Drawback :
+1) Less control over request/response
+
+
+👉 "We moved from writing HTTP logic → declaring intent"
+========================================================
+*/
