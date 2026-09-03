@@ -1,28 +1,84 @@
-### Get all posts
-GET http://localhost:8080/api/blog-posts
+### ── V1 REQUESTS ────────────────────────────────────────────────────────────
+# Response shape: { id, userId, title, body }
+# 'title' is a single full string
 
-### Get one post
-GET http://localhost:8080/api/blog-posts/1
+### V1 - Get all posts
+GET http://localhost:8080/api/1/blog-posts
 
-### Create
-POST http://localhost:8080/api/blog-posts
+### V1 - Get one post
+GET http://localhost:8080/api/1/blog-posts/1
+
+### V1 - Create
+POST http://localhost:8080/api/1/blog-posts
 Content-Type: application/json
 
 {
-  "title": "IntelliJ test",
-  "body": "Testing from .http file",
+  "title": "Spring Boot Four Demo",
+  "body": "Testing V1 from .http file",
   "userId": 1
 }
 
-### Update
-PUT http://localhost:8080/api/blog-posts/1
+### V1 - Update
+PUT http://localhost:8080/api/1/blog-posts/1
 Content-Type: application/json
 
 {
-  "title": "Updated",
+  "title": "Updated Title Here",
   "body": "Updated from IntelliJ",
   "userId": 1
 }
 
-### Delete
-DELETE http://localhost:8080/api/blog-posts/1
+### V1 - Delete
+DELETE http://localhost:8080/api/1/blog-posts/1
+
+### ── V2 REQUESTS ─────────────────────────────────────────────────────────────
+# Breaking change: 'title' is split into 'shortTitle' + 'titleDetails'
+
+
+### V2 - Get all posts
+GET http://localhost:8080/api/2/blog-posts
+
+### V2 - Get one post
+GET http://localhost:8080/api/2/blog-posts/1
+
+### V2 - Create
+POST http://localhost:8080/api/2/blog-posts
+Content-Type: application/json
+
+{
+  "title": "Spring Boot Four Demo",
+  "body": "Testing V2 from .http file",
+  "userId": 1
+}
+
+### V2 - Update
+PUT http://localhost:8080/api/2/blog-posts/1
+Content-Type: application/json
+
+{
+  "title": "Updated Title Here",
+  "body": "Updated from IntelliJ V2",
+  "userId": 1
+}
+
+### V2 - Delete
+DELETE http://localhost:8080/api/2/blog-posts/1
+
+### ── INVALID VERSION (should be rejected) ──────────────────────────────────
+
+### Invalid version — Spring Boot 4 rejects with proper error response
+GET http://localhost:8080/api/3/blog-posts
+
+### ── MANUAL VERSIONING COMPARISON ──────────────────────────────────────────
+# Old approach — version hardcoded in URL path, no central config
+
+### Manual V1 - Get all posts
+GET http://localhost:8080/manual/v1/blog-posts
+
+### Manual V2 - Get all posts (breaking change: shortTitle + titleDetails)
+GET http://localhost:8080/manual/v2/blog-posts
+
+### Manual unknown version — returns 404 (no handler found)
+### Compare: Spring Boot 4 returns a proper versioning error instead
+GET http://localhost:8080/manual/v99/blog-posts
+

@@ -1,6 +1,6 @@
 package com.example.demo.blog.controller;
 
-import com.example.demo.blog.model.BlogPostDtoV1;
+import com.example.demo.blog.model.BlogPostDtoV2;
 import com.example.demo.blog.model.BlogPostRequest;
 import com.example.demo.blog.service.BlogPostService;
 import jakarta.validation.Valid;
@@ -18,36 +18,36 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/{version}/blog-posts", version = "1")  // path: /api/1/blog-posts
-public class BlogPostController {
+@RequestMapping(value = "/api/{version}/blog-posts", version = "2")  // path: /api/2/blog-posts
+public class BlogPostV2Controller {
 
     private final BlogPostService blogPostService;
 
-    public BlogPostController(BlogPostService blogPostService) {
+    public BlogPostV2Controller(BlogPostService blogPostService) {
         this.blogPostService = blogPostService;
     }
 
     @GetMapping
-    public List<BlogPostDtoV1> findAll() {
+    public List<BlogPostDtoV2> findAll() {
         return blogPostService.findAll().stream()
-                .map(BlogPostDtoV1::from)
+                .map(BlogPostDtoV2::from)
                 .toList();
     }
 
     @GetMapping("/{id}")
-    public BlogPostDtoV1 findById(@PathVariable Integer id) {
-        return BlogPostDtoV1.from(blogPostService.findById(id));
+    public BlogPostDtoV2 findById(@PathVariable Integer id) {
+        return BlogPostDtoV2.from(blogPostService.findById(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BlogPostDtoV1 create(@Valid @RequestBody BlogPostRequest request) {
-        return BlogPostDtoV1.from(blogPostService.create(request));
+    public BlogPostDtoV2 create(@Valid @RequestBody BlogPostRequest request) {
+        return BlogPostDtoV2.from(blogPostService.create(request));
     }
 
     @PutMapping("/{id}")
-    public BlogPostDtoV1 update(@PathVariable Integer id, @Valid @RequestBody BlogPostRequest request) {
-        return BlogPostDtoV1.from(blogPostService.update(id, request));
+    public BlogPostDtoV2 update(@PathVariable Integer id, @Valid @RequestBody BlogPostRequest request) {
+        return BlogPostDtoV2.from(blogPostService.update(id, request));
     }
 
     @DeleteMapping("/{id}")
