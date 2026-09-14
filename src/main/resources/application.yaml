@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: spring-boot4-features
+  http:
+    client:
+      group:
+        blogs:
+          base-url: https://jsonplaceholder.typicode.com
+        users:
+          base-url: https://jsonplaceholder.typicode.com
+
+blog:
+  api:
+    base-url: https://jsonplaceholder.typicode.com
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # For the demo: expose metrics/prometheus plus a few diagnostic endpoints.
+        # In production, trim this to only what you need (e.g. health,info,metrics,prometheus).
+        include: health,info,metrics,prometheus
+  metrics:
+    export:
+      otlp:
+        url: http://localhost:4318/v1/metrics   # metrics -> collector -> Prometheus
+  opentelemetry:
+    # Guarantees the service name Grafana/Tempo/Loki use for discovery.
+    resource-attributes:
+      service.name: spring-boot4-features
+    tracing:
+      export:
+        otlp:
+          endpoint: http://localhost:4318/v1/traces   # traces -> collector -> Tempo
+          transport: http
+    logging:
+      export:
+        otlp:
+          endpoint: http://localhost:4318/v1/logs      # logs -> collector -> Loki
+          transport: http
+  # Logs need this explicit flag; traces/metrics enable automatically from their endpoints.
+  logging:
+    export:
+      otlp:
+        enabled: true
+  tracing:
+    sampling:
+      # 1.0 = capture every request (ideal for a live demo).
+      # In production lower this (e.g. 0.1) to reduce overhead and cost.
+      probability: 1.0
+
+server:
+  shutdown: immediate
+
+logging:
+  level:
+    root: INFO
+    com.example.demo: INFO
+    org.springframework.boot.docker.compose: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] [%X{traceId:-},%X{spanId:-}] %logger{36} - %msg%n"

@@ -30,11 +30,58 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Required for metrics/tracing endpoints -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- Spring Boot 4 OpenTelemetry starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-opentelemetry</artifactId>
+        </dependency>
+
+        <!-- Boot Docker Compose integration -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-docker-compose</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Optional: if you want /actuator/prometheus -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
+        <!-- OTLP metrics exporter for sending Micrometer metrics to the collector -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-otlp</artifactId>
+        </dependency>
+
+        <!-- OpenTelemetry Logback appender: bridges Logback logs into the OTel SDK so they can be exported via OTLP.
+             NOTE: published only with the -alpha suffix (opentelemetry-instrumentation release train).
+             Version 2.21.0-alpha aligns with OpenTelemetry core 1.55.0 (managed by the Spring Boot 4.0.6 BOM). -->
+        <dependency>
+            <groupId>io.opentelemetry.instrumentation</groupId>
+            <artifactId>opentelemetry-logback-appender-1.0</artifactId>
+            <version>2.21.0-alpha</version>
+        </dependency>
+
+        <!-- Provides ExtendedAttributeKey used by the logback appender.
+             Version matches the OpenTelemetry core (1.55.0) managed by the Spring Boot 4.0.6 BOM. -->
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-api-incubator</artifactId>
+            <version>1.55.0-alpha</version>
         </dependency>
 
     </dependencies>

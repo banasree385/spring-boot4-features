@@ -4,6 +4,8 @@ import com.example.demo.blog.model.BlogPostDtoV2;
 import com.example.demo.blog.model.BlogPostRequest;
 import com.example.demo.blog.service.BlogPostService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/{version}/blog-posts", version = "2")  // path: /api/2/blog-posts
 public class BlogPostV2Controller {
+    private static final Logger logger= LoggerFactory.getLogger(BlogPostV2Controller.class);
+
 
     private final BlogPostService blogPostService;
 
@@ -29,6 +33,7 @@ public class BlogPostV2Controller {
 
     @GetMapping
     public List<BlogPostDtoV2> findAll() {
+        logger.info("Find all blog posts");
         return blogPostService.findAll().stream()
                 .map(BlogPostDtoV2::from)
                 .toList();

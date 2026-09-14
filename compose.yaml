@@ -1,0 +1,12 @@
+services:
+  grafana-lgtm:
+    image: 'grafana/otel-lgtm:latest'
+    environment:
+      - ENABLE_LOGS_ALL=true
+      - OTEL_COLLECTOR_DEBUG_EXPORTER=true
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin6
+    ports:
+      - '3000:3000'
+      - '4317:4317'
+      - '4318:4318'
